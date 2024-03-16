@@ -1,0 +1,10 @@
+type Query {
+    getUserInfoById(userId: ID!): UserInfo
+    getAllUsers: [UserInfo!]!
+}
+
+type UserInfo {
+    userId: ID!
+    firstName: String!
+    lastName: String!
+}
