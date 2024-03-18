@@ -8,4 +8,8 @@ import java.util.List;
 public interface UserInfoService {
     UserInfo findByUserInfoId (String userId);
     List<UserInfo> findAllUsers();
+
+    boolean checkValidity(String email, String password);
+
+    String saveUsers(String email, String password, String name);
 }

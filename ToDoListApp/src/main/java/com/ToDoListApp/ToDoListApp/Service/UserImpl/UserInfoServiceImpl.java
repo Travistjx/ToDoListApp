@@ -30,4 +30,26 @@ public class UserInfoServiceImpl implements UserInfoService {
     public List<UserInfo> findAllUsers() {
         return userInfoRepository.findAll();
     }
+
+    @Override
+    public boolean checkValidity(String email, String password) {
+        UserInfo user = userInfoRepository.findByEmail(email);
+        if (user != null) {
+            return user.getPassword().equals(password);
+        }
+
+        return false;
+    }
+
+    @Override
+    public String saveUsers(String email, String password, String name) {
+        // Check if a user with the provided email already exists
+        UserInfo existingUser = userInfoRepository.findByEmail(email);
+        if (existingUser != null) return "Email already in use.";
+
+        // Create the new user
+        UserInfo userInfo = new UserInfo(email, password, name);
+        UserInfo savedUser = userInfoRepository.save(userInfo);
+        return savedUser.getUserId() != null? "Registration successful.": "An error occurred. Please try again.";
+    }
 }

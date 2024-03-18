@@ -1,11 +1,11 @@
-package com.ToDoListApp.ToDoListApp.Component;
+package com.ToDoListApp.ToDoListApp.Controller;
 
 import com.ToDoListApp.ToDoListApp.Model.UserInfo;
 import com.ToDoListApp.ToDoListApp.Service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
@@ -28,5 +28,15 @@ public class QueryController{
     @QueryMapping
     public List<UserInfo> getAllUsers() {
         return userInfoService.findAllUsers();
+    }
+
+    @MutationMapping
+    public boolean checkValidity(@Argument String email, @Argument String password) {
+        return userInfoService.checkValidity(email, password);
+    }
+
+    @MutationMapping
+    public String registerUser(@Argument String email, @Argument String password,  @Argument String name) {
+        return userInfoService.saveUsers(email, password, name);
     }
 }
